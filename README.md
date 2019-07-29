@@ -1,2 +1,3 @@
 # GetReadySamoa
-Get Ready site for Samoa
+Core Files for Samoa Get Ready Web app
+Built on HTML5,CSS and Javascript
