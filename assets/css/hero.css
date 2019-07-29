@@ -1,0 +1,350 @@
+/*
+    reset stuff
+*/
+
+*,
+*::after,
+*::before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+  font-family: "Open Sans", sans-serif;
+  /*color: #2c343b;*/
+  background-color: #f2f2f2;
+}
+
+a{
+  color: #d44457;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+.cd-hero {
+  height: 550px;
+  width: 100%;
+  margin:  auto;
+  position: relative;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.cd-hero-slider {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+.cd-hero-slider li {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -webkit-transform: translateX(100%);
+  -moz-transform: translateX(100%);
+  -ms-transform: translateX(100%);
+  -o-transform: translateX(100%);
+  transform: translateX(100%);
+}
+
+.cd-hero-slider li.selected {
+  /* this is the visible slide */
+  position: relative;
+  -webkit-transform: translateX(0);
+  -moz-transform: translateX(0);
+  -ms-transform: translateX(0);
+  -o-transform: translateX(0);
+  transform: translateX(0);
+}
+
+.cd-hero-slider li.move-left {
+  /* slide hidden on the left */
+  -webkit-transform: translateX(-100%);
+  -moz-transform: translateX(-100%);
+  -ms-transform: translateX(-100%);
+  -o-transform: translateX(-100%);
+  transform: translateX(-100%);
+}
+
+.cd-hero-slider li.is-moving,
+.cd-hero-slider li.selected {
+  /* the is-moving class is assigned to the slide which is moving outside the viewport */
+  -webkit-transition: -webkit-transform 2.5s;
+  -moz-transition: -moz-transform 2.5s;
+  transition: transform 2.5s;
+}
+
+
+/* --------------------------------
+
+Single slide style
+
+-------------------------------- */
+
+.cd-hero-slider li {
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.cd-hero-slider .cd-full-width,
+.cd-hero-slider .cd-half-width {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  text-align: center;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
+}
+
+.cd-hero-slider .cd-half-width {
+  width: 45%;
+}
+
+.cd-hero-slider .cd-half-width:first-of-type {
+  left: 5%;
+}
+
+.cd-hero-slider .cd-half-width:nth-of-type(2) {
+  right: 5%;
+  left: auto;
+}
+
+.cd-hero-slider .cd-content {
+  position: relative;
+  top: calc(50% - 30px);
+  transform: translateY(-52%) !important;
+  padding: 0 50px;
+}
+
+
+/*
+    animations & transitions
+*/
+
+.cd-hero-slider .cd-half-width {
+  opacity: 0;
+  -webkit-transform: translateX(40px);
+  -moz-transform: translateX(40px);
+  -ms-transform: translateX(40px);
+  -o-transform: translateX(40px);
+  transform: translateX(40px);
+}
+
+.cd-hero-slider .move-left .cd-half-width {
+  -webkit-transform: translateX(-40px);
+  -moz-transform: translateX(-40px);
+  -ms-transform: translateX(-40px);
+  -o-transform: translateX(-40px);
+  transform: translateX(-40px);
+}
+
+.cd-hero-slider .selected .cd-half-width {
+  /* this is the visible slide */
+  opacity: 1;
+  -webkit-transform: translateX(0);
+  -moz-transform: translateX(0);
+  -ms-transform: translateX(0);
+  -o-transform: translateX(0);
+  transform: translateX(0);
+}
+
+.cd-hero-slider .is-moving .cd-half-width {
+  /* this is the slide moving outside the viewport
+    wait for the end of the transition on the <li> parent before set opacity to 0 and translate to 40px/-40px */
+  -webkit-transition: opacity 0s 0.5s, -webkit-transform 0s 0.5s;
+  -moz-transition: opacity 0s 0.5s, -moz-transform 0s 0.5s;
+  transition: opacity 0s 0.5s, transform 0s 0.5s;
+}
+
+.cd-hero-slider li.selected.from-left .cd-half-width:nth-of-type(2),
+.cd-hero-slider li.selected.from-right .cd-half-width:first-of-type {
+  /* this is the selected slide - different animation if it's entering from left or right */
+  -webkit-transition: opacity 0.4s 0.2s, -webkit-transform 0.5s 0.2s;
+  -moz-transition: opacity 0.4s 0.2s, -moz-transform 0.5s 0.2s;
+  transition: opacity 0.4s 0.2s, transform 0.5s 0.2s;
+}
+
+.cd-hero-slider li.selected.from-left .cd-half-width:first-of-type,
+.cd-hero-slider li.selected.from-right .cd-half-width:nth-of-type(2) {
+  /* this is the selected slide - different animation if it's entering from left or right */
+  -webkit-transition: opacity 0.4s 0.4s, -webkit-transform 0.5s 0.4s;
+  -moz-transition: opacity 0.4s 0.4s, -moz-transform 0.5s 0.4s;
+  transition: opacity 0.4s 0.4s, transform 0.5s 0.4s;
+}
+
+.cd-hero-slider .cd-full-width h1,
+.cd-hero-slider .cd-full-width h2,
+.cd-hero-slider .cd-full-width h3,
+.cd-hero-slider .cd-full-width h4,
+.cd-hero-slider .cd-full-width h5,
+.cd-hero-slider .cd-full-width h6,
+.cd-hero-slider .cd-full-width p,
+.cd-hero-slider .cd-full-width a,
+.cd-hero-slider .cd-full-width .button {
+  opacity: 0;
+  -webkit-transform: translateX(100px);
+  -moz-transform: translateX(100px);
+  -ms-transform: translateX(100px);
+  -o-transform: translateX(100px);
+  transform: translateX(100px);
+}
+
+.cd-hero-slider .move-left .cd-full-width h1,
+.cd-hero-slider .move-left .cd-full-width h2,
+.cd-hero-slider .move-left .cd-full-width h3,
+.cd-hero-slider .move-left .cd-full-width h4,
+.cd-hero-slider .move-left .cd-full-width h5,
+.cd-hero-slider .move-left .cd-full-width h6,
+.cd-hero-slider .move-left .cd-full-width p,
+.cd-hero-slider .move-left .cd-full-width .button {
+  opacity: 0;
+  -webkit-transform: translateX(-100px);
+  -moz-transform: translateX(-100px);
+  -ms-transform: translateX(-100px);
+  -o-transform: translateX(-100px);
+  transform: translateX(-100px);
+}
+
+.cd-hero-slider .selected .cd-full-width h1,
+.cd-hero-slider .selected .cd-full-width h2,
+.cd-hero-slider .selected .cd-full-width h3,
+.cd-hero-slider .selected .cd-full-width h4,
+.cd-hero-slider .selected .cd-full-width h5,
+.cd-hero-slider .selected .cd-full-width h6,
+.cd-hero-slider .selected .cd-full-width p,
+.cd-hero-slider .selected .cd-full-width .button {
+  /* this is the visible slide */
+  opacity: 1;
+  -webkit-transform: translateX(0);
+  -moz-transform: translateX(0);
+  -ms-transform: translateX(0);
+  -o-transform: translateX(0);
+  transform: translateX(0);
+}
+
+.cd-hero-slider li.is-moving .cd-full-width h1,
+.cd-hero-slider li.is-moving .cd-full-width h2,
+.cd-hero-slider li.is-moving .cd-full-width h3,
+.cd-hero-slider li.is-moving .cd-full-width h4,
+.cd-hero-slider li.is-moving .cd-full-width h5,
+.cd-hero-slider li.is-moving .cd-full-width h6,
+.cd-hero-slider li.is-moving .cd-full-width p,
+.cd-hero-slider li.is-moving .cd-full-width .button {
+  /* this is the slide moving outside the viewport
+    wait for the end of the transition on the li parent before set opacity to 0 and translate to 100px/-100px */
+  -webkit-transition: opacity 0s 0.5s, -webkit-transform 0s 0.5s;
+  -moz-transition: opacity 0s 0.5s, -moz-transform 0s 0.5s;
+  transition: opacity 0s 0.5s, transform 0s 0.5s;
+}
+
+
+/* different timings for different elements */
+
+.cd-hero-slider li.selected h1,
+.cd-hero-slider li.selected h2,
+.cd-hero-slider li.selected h3,
+.cd-hero-slider li.selected h4,
+.cd-hero-slider li.selected h5,
+.cd-hero-slider li.selected h6 {
+  -webkit-transition: opacity 0.4s 0.2s, -webkit-transform 0.5s 0.2s;
+  -moz-transition: opacity 0.4s 0.2s, -moz-transform 0.5s 0.2s;
+  transition: opacity 0.4s 0.2s, transform 0.5s 0.2s;
+}
+
+.cd-hero-slider li.selected p {
+  -webkit-transition: opacity 0.4s 0.3s, -webkit-transform 0.5s 0.3s;
+  -moz-transition: opacity 0.4s 0.3s, -moz-transform 0.5s 0.3s;
+  transition: opacity 0.4s 0.3s, transform 0.5s 0.3s;
+}
+
+.cd-hero-slider li.selected .button,
+.cd-hero-slider li.selected input[type="button"],
+.cd-hero-slider li.selected button,
+{
+  -webkit-transition: opacity 0.4s 0.4s, -webkit-transform 0.5s 0.4s, background-color 0.2s 0s;
+  -moz-transition: opacity 0.4s 0.4s, -moz-transform 0.5s 0.4s, background-color 0.2s 0s;
+  transition: opacity 0.4s 0.4s, transform 0.5s 0.4s, background-color 0.2s 0s;
+}
+
+
+/*
+    slider navigation
+*/
+
+.cd-slider-nav {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  z-index: 2;
+  text-align: center;
+  height: 30px;
+}
+
+.cd-slider-nav nav {
+  display: inline-block;
+  position: relative;
+  height: 100%;
+}
+
+.cd-slider-nav a {
+  display: inline-block;
+  float: left;
+  width: 15px;
+  height: 15px;
+  margin: 5px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.cd-slider-nav a.selected {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+/* --------------------------------
+
+Javascript disabled
+
+-------------------------------- */
+
+.no-js .cd-hero-slider li {
+  display: none;
+}
+
+.no-js .cd-hero-slider li.selected {
+  display: block;
+}
+
+.no-js .cd-slider-nav {
+  display: none;
+}
