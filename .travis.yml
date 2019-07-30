@@ -1,0 +1,6 @@
+script:
+  - 'npm install -g bower'
+  - 'bower install -f'
+  - 'bundle exec middleman build'
+after_success:
+  - "./deploy.sh"
