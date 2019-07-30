@@ -1,6 +1,7 @@
+
+language: csharp
+mono: none
+dotnet: 2.1.403
 script:
-  - 'npm install -g bower'
-  - 'bower install -f'
-  - 'bundle exec middleman build'
-after_success:
-  - "./deploy.sh"
+  dotnet build
+  dotnet run
